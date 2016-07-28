@@ -1,17 +1,14 @@
 package com.moomeen.endo2java.model;
 
 import static com.moomeen.endo2java.model.Constants.*;
-
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.time.LocalDateTime;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Point {
-
-	private DateTime time;
+	private LocalDateTime time;
 	private Double speed;
 	@JsonProperty("dist")
 	private Double distance;
@@ -26,10 +23,10 @@ public class Point {
 
 	@JsonProperty("time")
 	public void setStartTime(String startTime){
-		this.time = DateTime.parse(startTime, DateTimeFormat.forPattern(DATE_FORMAT));
+		this.time = LocalDateTime.parse(startTime, DATE_TIME_FORMATTER);
 	}
 
-	public DateTime getTime() {
+	public LocalDateTime getTime() {
 		return time;
 	}
 	public Double getSpeed() {

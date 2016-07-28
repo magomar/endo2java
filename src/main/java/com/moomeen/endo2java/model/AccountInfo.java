@@ -2,12 +2,11 @@ package com.moomeen.endo2java.model;
 
 import static com.moomeen.endo2java.model.Constants.*;
 
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
-import org.joda.time.format.DateTimeFormat;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.time.LocalDateTime;
+import java.util.TimeZone;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AccountInfo {
@@ -16,8 +15,8 @@ public class AccountInfo {
 	private Integer weight;
 	private String phone;
 	private Sex sex;
-	private DateTime syncTime;
-	private DateTime dateOfBirth;
+	private LocalDateTime syncTime;
+	private LocalDateTime dateOfBirth;
 	@JsonProperty("lounge_member")
 	private Boolean loungeMember;
 	@JsonProperty("favorite_sport")
@@ -33,35 +32,35 @@ public class AccountInfo {
 	private String lastName;
 	@JsonProperty("picture_id")
 	private Long pictureId;
-	private DateTime weightTime;
+	private LocalDateTime weightTime;
 	@JsonProperty("height_cm")
 	private Integer height;
-	private DateTime createdTime;
-	private DateTimeZone timeZone;
+	private LocalDateTime createdTime;
+	private TimeZone timeZone;
 
 	@JsonProperty("sync_time")
 	public void setSyncTime(String s){
-		this.syncTime = DateTime.parse(s, DateTimeFormat.forPattern(DATE_FORMAT));
+		this.syncTime = LocalDateTime.parse(s, DATE_TIME_FORMATTER);
 	}
 
 	@JsonProperty("date_of_birth")
 	public void setDateOfBirth(String s){
-		this.dateOfBirth = DateTime.parse(s, DateTimeFormat.forPattern(DATE_FORMAT));
+		this.dateOfBirth = LocalDateTime.parse(s, DATE_TIME_FORMATTER);
 	}
 
 	@JsonProperty("weight_time")
 	public void setWeightTime(String s){
-		this.weightTime = DateTime.parse(s, DateTimeFormat.forPattern(DATE_FORMAT));
+		this.weightTime = LocalDateTime.parse(s, DATE_TIME_FORMATTER);
 	}
 
 	@JsonProperty("created_time")
 	public void setCreatedTime(String s){
-		this.createdTime = DateTime.parse(s, DateTimeFormat.forPattern(DATE_FORMAT));
+		this.createdTime = LocalDateTime.parse(s, DATE_TIME_FORMATTER);
 	}
 	
 	@JsonProperty("time_zone")
 	public void setTimeZone(String s){
-		this.timeZone = DateTimeZone.forID(s);
+		this.timeZone = TimeZone.getTimeZone(s);
 	}
 
 	public Integer getWeight() {
@@ -76,11 +75,11 @@ public class AccountInfo {
 		return sex;
 	}
 
-	public DateTime getSyncTime() {
+	public LocalDateTime getSyncTime() {
 		return syncTime;
 	}
 
-	public DateTime getDateOfBirth() {
+	public LocalDateTime getDateOfBirth() {
 		return dateOfBirth;
 	}
 
@@ -120,7 +119,7 @@ public class AccountInfo {
 		return pictureId;
 	}
 
-	public DateTime getWeightTime() {
+	public LocalDateTime getWeightTime() {
 		return weightTime;
 	}
 
@@ -128,11 +127,11 @@ public class AccountInfo {
 		return height;
 	}
 
-	public DateTime getCreatedTime() {
+	public LocalDateTime getCreatedTime() {
 		return createdTime;
 	}
 
-	public DateTimeZone getTimeZone() {
+	public TimeZone getTimeZone() {
 		return timeZone;
 	}
 }

@@ -1,12 +1,11 @@
 package com.moomeen.endo2java;
 
-import static org.joda.time.DateTime.*;
 import static org.mockito.Mockito.*;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
-import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,14 +34,14 @@ public class MultiThreadedEndoExecutorTest {
 	public void getAllWorkoutsTest() throws InvocationException{
 		int WORKOUTS_PER_THREAD = 2;
 		long FIRST_ID = 1;
-		DateTime FIRST_START = parse("2013-01-01T12:12:12"); 
+		LocalDateTime FIRST_START = LocalDateTime.of(2013,01,01,12,12,12);
 		long SECOND_ID = 2;
-		DateTime SECOND_START = parse("2012-01-01T12:12:12");
+		LocalDateTime SECOND_START = LocalDateTime.of(2012,01,01,12,12,12);
 		long THIRD_ID = 3;
-		DateTime THIRD_START = parse("2011-01-01T12:12:12");
+		LocalDateTime THIRD_START = LocalDateTime.of(2011,01,01,12,12,12);
 		long FOURTH_ID = 4;
-		DateTime FOURTH_START = parse("2010-01-01T12:12:12");
-		
+		LocalDateTime FOURTH_START = LocalDateTime.of(2010,01,01,12,12,12);
+
 		// given
 		List<Workout> workouts = workouts(
 				workout(FIRST_ID, FIRST_START),
@@ -73,7 +72,7 @@ public class MultiThreadedEndoExecutorTest {
 		verify(session, times(1)).getWorkouts(maxResults);
 	}
 
-	private void assertWorkoutsRetrieved(int maxResults, DateTime startTime) throws InvocationException{
+	private void assertWorkoutsRetrieved(int maxResults, LocalDateTime startTime) throws InvocationException{
 		verify(session, times(1)).getWorkouts(maxResults, startTime); // first bunch
 	}
 	
@@ -81,7 +80,7 @@ public class MultiThreadedEndoExecutorTest {
 		return Arrays.asList(workouts);
 	}
 	
-	private Workout workout(long id, DateTime startTime){
+	private Workout workout(long id, LocalDateTime startTime){
 		Workout workout = mock(Workout.class);
 		when(workout.getId()).thenReturn(id);
 		when(workout.getStartTime()).thenReturn(startTime);

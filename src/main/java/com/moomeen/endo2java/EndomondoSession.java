@@ -1,5 +1,6 @@
 package com.moomeen.endo2java;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +15,6 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Response;
 
 import org.glassfish.jersey.client.ClientConfig;
-import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,6 +26,8 @@ import com.moomeen.endo2java.model.DetailedWorkout;
 import com.moomeen.endo2java.model.Workout;
 import com.moomeen.endo2java.schema.response.AccountInfoResponse;
 import com.moomeen.endo2java.schema.response.WorkoutsResponse;
+
+import static com.moomeen.endo2java.model.Constants.QUERY_DATE_TIME_FORMATTER;
 
 public class EndomondoSession {
 
@@ -119,7 +121,7 @@ public class EndomondoSession {
 		checkLoggedIn();
 		List<Workout> ret = new ArrayList<Workout>();
 		int maxPerRequest = 999;
-		DateTime before = DateTime.now();
+		LocalDateTime before = LocalDateTime.now();
 		boolean hasMore;
 		do {
 			WorkoutsResponse workouts = queryWorkouts(fields, maxPerRequest, before);
@@ -140,26 +142,26 @@ public class EndomondoSession {
 	/**
 	 * assumes workouts are sorted descending by start date (that is how api returns them) 
 	 */
-	private DateTime getDateOfTheOldest(List<Workout> workouts){
+	private LocalDateTime getDateOfTheOldest(List<Workout> workouts){
 		return workouts.get(workouts.size()-1).getStartTime();
 	}
 
-	public List<Workout> getWorkouts(int maxResults, DateTime before) throws InvocationException {
+	public List<Workout> getWorkouts(int maxResults, LocalDateTime before) throws InvocationException {
 		return getWorkouts(WORKOUTS_FIELDS, maxResults, before);
 	}
 
-	public List<Workout> getWorkouts(String fields, int maxResults, DateTime before) throws InvocationException {
+	public List<Workout> getWorkouts(String fields, int maxResults, LocalDateTime before) throws InvocationException {
 		checkLoggedIn();
 		WorkoutsResponse workouts = queryWorkouts(fields, maxResults, before);
 		return workouts.data;
 	}
 
-	private WorkoutsResponse queryWorkouts(String fields, int maxResults, DateTime before) throws InvocationException {
+	private WorkoutsResponse queryWorkouts(String fields, int maxResults, LocalDateTime before) throws InvocationException {
 		WebTarget workoutsTarget = target().path(WORKOUTS_PATH)
 				.queryParam("authToken", authToken)
 				.queryParam("fields", fields)
 				.queryParam("maxResults", maxResults)
-				.queryParam("before", before.toString("yyyy-MM-dd HH:mm:ss Z"));
+				.queryParam("before", QUERY_DATE_TIME_FORMATTER.format(before));
 
 		return get(workoutsTarget, WorkoutsResponse.class);
 	}

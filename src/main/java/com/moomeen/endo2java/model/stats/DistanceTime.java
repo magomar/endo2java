@@ -1,8 +1,7 @@
 package com.moomeen.endo2java.model.stats;
 
+import java.time.Duration;
 import java.util.List;
-
-import org.joda.time.Duration;
 
 import com.moomeen.endo2java.model.Point;
 
