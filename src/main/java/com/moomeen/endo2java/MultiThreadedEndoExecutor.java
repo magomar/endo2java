@@ -1,6 +1,6 @@
 package com.moomeen.endo2java;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,7 +36,7 @@ public class MultiThreadedEndoExecutor {
 		tasks.put(firstTask.result, firstTask.task);
 
 		for (int i = 1; i < workoutsHeaders.size(); i = i + workoutsPerThread){
-			final LocalDateTime before = workoutsHeaders.get(i - 1).getStartTime();
+			final ZonedDateTime before = workoutsHeaders.get(i - 1).getStartTime();
 			TaskEntry task = submitTask(workoutsPerThread, before);
 			tasks.put(task.result, task.task);
 		}
@@ -98,7 +98,7 @@ public class MultiThreadedEndoExecutor {
 		return submit(task);
 	}
 
-	private TaskEntry submitTask(final int max, final LocalDateTime before){
+	private TaskEntry submitTask(final int max, final ZonedDateTime before){
 		Callable<List<Workout>> task = new Callable<List<Workout>>() {
 
 			@Override

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.Duration;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.Map;
 
 import static com.moomeen.endo2java.model.Constants.DATE_TIME_FORMATTER;
@@ -18,7 +18,7 @@ public class Workout {
     @JsonProperty("burgers_burned")
     private Double burgersBurned;
     private Sport sport;
-    private LocalDateTime startTime;
+    private ZonedDateTime startTime;
     private Double calories;
     private Boolean live;
     @JsonProperty("altitude_min")
@@ -55,7 +55,7 @@ public class Workout {
 
     @JsonProperty("start_time")
     public void setStartTime(String startTime) {
-        this.startTime = LocalDateTime.parse(startTime, DATE_TIME_FORMATTER);
+        this.startTime = ZonedDateTime.parse(startTime, DATE_TIME_FORMATTER);
     }
 
     public Long getId() {
@@ -78,7 +78,7 @@ public class Workout {
         return sport;
     }
 
-    public LocalDateTime getStartTime() {
+    public ZonedDateTime getStartTime() {
         return startTime;
     }
 

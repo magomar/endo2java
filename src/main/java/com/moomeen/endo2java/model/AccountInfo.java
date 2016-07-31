@@ -5,7 +5,7 @@ import static com.moomeen.endo2java.model.Constants.*;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.TimeZone;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -15,8 +15,8 @@ public class AccountInfo {
 	private Integer weight;
 	private String phone;
 	private Sex sex;
-	private LocalDateTime syncTime;
-	private LocalDateTime dateOfBirth;
+	private ZonedDateTime syncTime;
+	private ZonedDateTime dateOfBirth;
 	@JsonProperty("lounge_member")
 	private Boolean loungeMember;
 	@JsonProperty("favorite_sport")
@@ -32,30 +32,30 @@ public class AccountInfo {
 	private String lastName;
 	@JsonProperty("picture_id")
 	private Long pictureId;
-	private LocalDateTime weightTime;
+	private ZonedDateTime weightTime;
 	@JsonProperty("height_cm")
 	private Integer height;
-	private LocalDateTime createdTime;
+	private ZonedDateTime createdTime;
 	private TimeZone timeZone;
 
 	@JsonProperty("sync_time")
 	public void setSyncTime(String s){
-		this.syncTime = LocalDateTime.parse(s, DATE_TIME_FORMATTER);
+		this.syncTime = ZonedDateTime.parse(s, DATE_TIME_FORMATTER);
 	}
 
 	@JsonProperty("date_of_birth")
 	public void setDateOfBirth(String s){
-		this.dateOfBirth = LocalDateTime.parse(s, DATE_TIME_FORMATTER);
+		this.dateOfBirth = ZonedDateTime.parse(s, DATE_TIME_FORMATTER);
 	}
 
 	@JsonProperty("weight_time")
 	public void setWeightTime(String s){
-		this.weightTime = LocalDateTime.parse(s, DATE_TIME_FORMATTER);
+		this.weightTime = ZonedDateTime.parse(s, DATE_TIME_FORMATTER);
 	}
 
 	@JsonProperty("created_time")
 	public void setCreatedTime(String s){
-		this.createdTime = LocalDateTime.parse(s, DATE_TIME_FORMATTER);
+		this.createdTime = ZonedDateTime.parse(s, DATE_TIME_FORMATTER);
 	}
 	
 	@JsonProperty("time_zone")
@@ -75,11 +75,11 @@ public class AccountInfo {
 		return sex;
 	}
 
-	public LocalDateTime getSyncTime() {
+	public ZonedDateTime getSyncTime() {
 		return syncTime;
 	}
 
-	public LocalDateTime getDateOfBirth() {
+	public ZonedDateTime getDateOfBirth() {
 		return dateOfBirth;
 	}
 
@@ -119,7 +119,7 @@ public class AccountInfo {
 		return pictureId;
 	}
 
-	public LocalDateTime getWeightTime() {
+	public ZonedDateTime getWeightTime() {
 		return weightTime;
 	}
 
@@ -127,7 +127,7 @@ public class AccountInfo {
 		return height;
 	}
 
-	public LocalDateTime getCreatedTime() {
+	public ZonedDateTime getCreatedTime() {
 		return createdTime;
 	}
 

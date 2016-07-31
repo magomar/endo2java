@@ -1,6 +1,6 @@
 package com.moomeen.endo2java;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -121,7 +121,7 @@ public class EndomondoSession {
 		checkLoggedIn();
 		List<Workout> ret = new ArrayList<Workout>();
 		int maxPerRequest = 999;
-		LocalDateTime before = LocalDateTime.now();
+		ZonedDateTime before = ZonedDateTime.now();
 		boolean hasMore;
 		do {
 			WorkoutsResponse workouts = queryWorkouts(fields, maxPerRequest, before);
@@ -142,21 +142,21 @@ public class EndomondoSession {
 	/**
 	 * assumes workouts are sorted descending by start date (that is how api returns them) 
 	 */
-	private LocalDateTime getDateOfTheOldest(List<Workout> workouts){
+	private ZonedDateTime getDateOfTheOldest(List<Workout> workouts){
 		return workouts.get(workouts.size()-1).getStartTime();
 	}
 
-	public List<Workout> getWorkouts(int maxResults, LocalDateTime before) throws InvocationException {
+	public List<Workout> getWorkouts(int maxResults, ZonedDateTime before) throws InvocationException {
 		return getWorkouts(WORKOUTS_FIELDS, maxResults, before);
 	}
 
-	public List<Workout> getWorkouts(String fields, int maxResults, LocalDateTime before) throws InvocationException {
+	public List<Workout> getWorkouts(String fields, int maxResults, ZonedDateTime before) throws InvocationException {
 		checkLoggedIn();
 		WorkoutsResponse workouts = queryWorkouts(fields, maxResults, before);
 		return workouts.data;
 	}
 
-	private WorkoutsResponse queryWorkouts(String fields, int maxResults, LocalDateTime before) throws InvocationException {
+	private WorkoutsResponse queryWorkouts(String fields, int maxResults, ZonedDateTime before) throws InvocationException {
 		WebTarget workoutsTarget = target().path(WORKOUTS_PATH)
 				.queryParam("authToken", authToken)
 				.queryParam("fields", fields)

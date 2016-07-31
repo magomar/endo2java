@@ -4,11 +4,11 @@ import static com.moomeen.endo2java.model.Constants.*;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Point {
-	private LocalDateTime time;
+	private ZonedDateTime time;
 	private Double speed;
 	@JsonProperty("dist")
 	private Double distance;
@@ -23,10 +23,10 @@ public class Point {
 
 	@JsonProperty("time")
 	public void setStartTime(String startTime){
-		this.time = LocalDateTime.parse(startTime, DATE_TIME_FORMATTER);
+		this.time = ZonedDateTime.parse(startTime, DATE_TIME_FORMATTER);
 	}
 
-	public LocalDateTime getTime() {
+	public ZonedDateTime getTime() {
 		return time;
 	}
 	public Double getSpeed() {
